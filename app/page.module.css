@@ -1,10 +1,22 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: center; */
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+}
+
+.main h1{
+  color: blue;
+  margin-top: 1.5rem;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 6rem;
 }
 
 .description {
