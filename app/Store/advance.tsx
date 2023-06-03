@@ -76,16 +76,14 @@ const RootStore = types
                 { Id: '3', Title: 'Task 3', Completed: true },  
                 { Id: '4', Title: 'Task 4', Completed: false },
                 { Id: '5', Title: 'Task 5', Completed: false },
-                { Id: '6', Title: 'Task 6', Completed: true },
             ];
            //? adding incoming tasks into the taskList which are come from api call 
             tasksFromApi.forEach(task => store.taskList.AddTask(task));
         });
 
         fetchTasks().then(()=>{
-
             // Get the current snapshot 
-            console.log("Getting the current snapshot :", getSnapshot(store.taskList))
+            console.log("Getting current snapshot :", getSnapshot(store.taskList))
             // Jkn fetch complete hoye jabe tkn eita 1 min por logCompletedTasks ke active kore dibe , jar jonno akn store er kno data change hoile e akta snapshot nibe 
             setTimeout(()=> logCompletedTasks(), 1000)
         })
