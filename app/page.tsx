@@ -5,11 +5,13 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import Users from "./Store/store";
 import User from "./User";
+import Task from "./Task";
 
 const Home = observer(() => {
   return (
     <>
-      <User />
+      {/* <User /> */}
+      <Task />
     </>
   );
 });
