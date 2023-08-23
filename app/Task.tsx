@@ -12,7 +12,7 @@ const Task = observer(() => {
     task.ToggleComplete();
   };
 
-  const handleTaskDelete = (TaskId: string) => {
+  const handleTaskDelete = (TaskId: any) => {
     taskList.RemoveTaks(TaskId);
   };
 

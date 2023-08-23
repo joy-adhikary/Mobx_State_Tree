@@ -26,6 +26,8 @@ const UserModel = types
         },
 
         setUserUsingApplySnapshot(){
+            
+            // ? Applysnapshot er somoi obssoi spred oparetor ur korty hobe , karon eita full snapshot ke replace kore . jodi akta dei tahole just oita diye replace kore dibe 
             applySnapshot(self,{
                 ...self,
                 UserId : 50,
@@ -40,7 +42,7 @@ const UserModel = types
 
         ToggleUserType(){
             self.UserType = self.UserType==="User"?"Admin":"User"
-            console.log("I am chaning user type")
+            console.log("I am chaning user type with Onsnapshot")
 
             // ei onSnapshot function execute hbe jkn ToggleUserType function er run hobe .
             //! karon ei jaigai self mane ei toggleusertype ke point kore ajonno . eita bojhar jonno nicer  ToggleUserType1() ta deya
@@ -62,6 +64,18 @@ const UserModel = types
             })
             console.log("It will run only  first time")
         }, 
+
+        reSet(){
+            applySnapshot(self,{
+                UserName: "Joy Adhikary",
+                UserId: 62,
+                UserScore1: 100,
+                UserScore2: 200,
+                UserType: "User",
+            })
+            console.log("Applying  Reset With applysnapshot")
+        }
+        
 }))
 
 //! This can be a computed or non computed value but it must be derived directly from the state.

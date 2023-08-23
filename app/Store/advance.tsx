@@ -8,97 +8,98 @@ import { applySnapshot, getSnapshot, onSnapshot, types, flow } from 'mobx-state-
 
 // Evabe access pabo . kintu caily store.tasklist.task diye o access kore jabe . kind of object er moto 
 
-const Task = types
-.model('Task',{
+const OnlyTask = types.model('Task', {
     Id: types.string,
     Title: types.string,
     Completed: types.boolean,
 })
 
-.actions(self => ({
+    .actions(self => ({
 
-    ToggleComplete(){
-        // self.Completed = !self.Completed
-        applySnapshot(self, {
-            ...self,
-            Completed: !self.Completed
-        })
-    },
+        ToggleComplete() {
+            // self.Completed = !self.Completed
+            applySnapshot(self, {
+                ...self,
+                Completed: !self.Completed
+            })
+        },
 
-    SetTitle(newTitle: string){
-        self.Title = newTitle;
-    }
-}));
+        SetTitle(newTitle: string) {
+            self.Title = newTitle;
+        }
+    }));
 
-const TaskList = types
-.model('TaskList',{
+
+const TaskList = types.model('TaskList', {
     // ? contain only an array of task 
-    tasks: types.array(Task)
+    tasks: types.array(OnlyTask)
 })
 
-.actions((self)=>({
-        
-        AddTask(newTask: any){
-          // ?  taking the new task and adding it to the list of tasks
+    .actions((self) => ({
+
+        AddTask(newTask: any) {
+            // ?  taking the new task and adding it to the list of tasks
             self.tasks.push(newTask);
         },
 
-        RemoveTaks(TaskId: number){
+        RemoveTaks(TaskId: string) {
             // ? taking the taskId and removing it from the list
             self.tasks = self.tasks.filter(task => task.Id !== TaskId);
         }
-}))
+    }))
 
-.views(self => ({
+    .views(self => ({
 
-    // ?  counting the number of completed tasks 
-    get TotalCompletedTask(){
-        return self.tasks.filter(task => task.Completed === true)
-        console.log("TotalCompletedTask Number: ", self.tasks.length)
-    }
-}))
+        // ?  counting the number of completed tasks 
+        get TotalCompletedTask() {
+            return self.tasks.filter(task => task.Completed === true)
+            console.log("TotalCompletedTask Number: ", self.tasks.length)
+        }
+    }))
 
 // ! task => TaskList [task] => RootStore
-const RootStore = types 
-.model("RootStore",{
-    taskList: TaskList
-})
+const RootStore = types
+    .model("RootStore", {
+        taskList: TaskList
+    })
 
-.actions(self => ({
-    GetFiveData(){
-        const fetchTasks = flow(function* () {
-            // Simulating an API request delay
-            yield new Promise(resolve => setTimeout(resolve, 1000));
-        
-            const tasksFromApi = [
-                { Id: '1', Title: 'Task 1', Completed: false },
-                { Id: '2', Title: 'Task 2', Completed: false },
-                { Id: '3', Title: 'Task 3', Completed: true },  
-                { Id: '4', Title: 'Task 4', Completed: false },
-                { Id: '5', Title: 'Task 5', Completed: false },
-            ];
-           //? adding incoming tasks into the taskList which are come from api call 
-            tasksFromApi.forEach(task => store.taskList.AddTask(task));
-        });
+    .actions(self => ({
+        GetFiveData() {
+            const fetchTasks = flow(function* () {
 
-        fetchTasks().then(()=>{
-            // Get the current snapshot 
-            console.log("Getting current snapshot :", getSnapshot(store.taskList))
-            // Jkn fetch complete hoye jabe tkn eita 1 min por logCompletedTasks ke active kore dibe , jar jonno akn store er kno data change hoile e akta snapshot nibe 
-            setTimeout(()=> logCompletedTasks(), 1000)
-        })
-    },
+                // Simulating an API request delay
+                yield new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Reset all tasks 
-    ResetDataUsingApplySnapshot(){
-        // Apply the snapshot to reset the state
-        applySnapshot(store, { 
-            taskList: { 
-                tasks: []
-            } 
-        });
-    }
-}))
+                const tasksFromApi = [
+                    { Id: '1', Title: 'Task 1', Completed: false },
+                    { Id: '2', Title: 'Task 2', Completed: false },
+                    { Id: '3', Title: 'Task 3', Completed: true },
+                    { Id: '4', Title: 'Task 4', Completed: false },
+                    { Id: '5', Title: 'Task 5', Completed: false },
+                ];
+                //? adding incoming tasks into the taskList which are come from api call 
+                // tasksFromApi.forEach(task => store.taskList.tasks.push(task));
+                tasksFromApi.forEach(task => store.taskList.AddTask(task));
+            });
+
+            fetchTasks().then(() => {
+                // Get the current snapshot 
+                console.log("Getting current snapshot :", getSnapshot(store.taskList))
+                // Jkn fetch complete hoye jabe tkn eita 1 min por logCompletedTasks ke active kore dibe , jar jonno akn store er kno data change hoile e akta snapshot nibe 
+                setTimeout(() => logCompletedTasks(), 1000)
+            })
+        },
+
+        // Reset all tasks 
+        ResetDataUsingApplySnapshot() {
+            // Apply the snapshot to reset the state
+            applySnapshot(store, {
+                taskList: {
+                    tasks: []
+                }
+            });
+        }
+    }))
 
 // create a new instance of  RootStore with default one task 
 const store = RootStore.create({

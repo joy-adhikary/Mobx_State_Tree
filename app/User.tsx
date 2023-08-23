@@ -8,9 +8,9 @@ import Users from "./Store/store"
 const User = observer(() => {
 
   const Toggle = () => {
-    Users.ToggleUserType();
+    // Users.ToggleUserType();
     //! uncomment and run this one ,to understand actual onSnapshot effect  
-    // Users.ToggleUserType1(); 
+    Users.ToggleUserType1();
   }
 
   const HandleName = () => {
@@ -26,27 +26,34 @@ const User = observer(() => {
     Users.setUserUsingApplySnapshot()
   }
 
+  const HandleReset = () => {
+    Users.reSet()
+  }
+
   return (
     <>
       <main className={styles.main}>
-      <h1>User Name is : {Users.UserName}</h1>
-      <h1>User ID is : {Users.UserId}</h1>
-      <h1>User Type is : {Users.UserType}</h1>
-      <h1>Total Score is : {Users.TotalScore}</h1>
-      <div className="buttons">
-      <button className="Toggle" type="button" style={{borderRadius: 5, marginTop:'2rem',width:'100px',height: '30px', border: '1.5px solid red' }} onClick={Toggle}>
-        Toggle Type
-      </button>
-      <button className="Toggle" type="button" style={{borderRadius: 5,marginLeft:'2rem', marginTop:'2rem',width:'100px',height: '30px',border: '1.5px solid' }} onClick={HandleName}>
-        Cng Name
-      </button>
-      <button className="Toggle" type="button" style={{borderRadius: 5,marginLeft:'2rem', marginTop:'2rem',width:'100px',height: '30px',border: '1.5px solid red' }} onClick={HandleScore}>
-        Cng Score
-      </button> 
-      <button className="Toggle" type="button" style={{borderRadius: 5,marginLeft:'2rem', marginTop:'2rem',width:'100px',height: '30px',border: '1.5px solid' }} onClick={HandleUserID}>
-        Cng UserID
-      </button> 
-      </div>
+        <h1>User Name is : {Users.UserName}</h1>
+        <h1>User ID is : {Users.UserId}</h1>
+        <h1>User Type is : {Users.UserType}</h1>
+        <h1>Total Score is : {Users.TotalScore}</h1>
+        <div className="buttons">
+          <button className="Toggle" type="button" style={{ borderRadius: 5, marginTop: '2rem', width: '100px', height: '30px', border: '1.5px solid red' }} onClick={Toggle}>
+            Toggle Type
+          </button>
+          <button className="Toggle" type="button" style={{ borderRadius: 5, marginLeft: '2rem', marginTop: '2rem', width: '100px', height: '30px', border: '1.5px solid' }} onClick={HandleName}>
+            Cng Name
+          </button>
+          <button className="Toggle" type="button" style={{ borderRadius: 5, marginLeft: '2rem', marginTop: '2rem', width: '100px', height: '30px', border: '1.5px solid red' }} onClick={HandleScore}>
+            Cng Score
+          </button>
+          <button className="Toggle" type="button" style={{ borderRadius: 5, marginLeft: '2rem', marginTop: '2rem', width: '100px', height: '30px', border: '1.5px solid' }} onClick={HandleUserID}>
+            Cng UserID
+          </button>
+          <button className="Toggle" type="button" style={{ borderRadius: 5, marginLeft: '2rem', marginTop: '2rem', width: '100px', height: '30px', border: '1.5px solid' }} onClick={HandleReset}>
+            Reset
+          </button>
+        </div>
       </main>
     </>
   )
