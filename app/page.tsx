@@ -10,7 +10,7 @@ const Home = observer(() => {
   return (
     <>
       {/* <User /> */}
-      <Task />
+      {/* <Task /> */}
     </>
   );
 });

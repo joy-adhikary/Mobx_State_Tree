@@ -5,7 +5,6 @@ import { applySnapshot, getSnapshot, onSnapshot, types, flow } from 'mobx-state-
 //? for example Task a only egula accesss pabo       =>  ToogleComplete , SetTitle  
 // ?            TaskList a  only egula access pabo   =>  AddTask , RemoveTask 
 //?             Rootstore a only egula access pabo   =>  GetFiveData , ResetDataUsingApplySnapshot
-
 // Evabe access pabo . kintu caily store.tasklist.task diye o access kore jabe . kind of object er moto 
 
 const OnlyTask = types.model('Task', {
