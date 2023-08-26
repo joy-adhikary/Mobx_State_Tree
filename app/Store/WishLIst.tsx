@@ -10,6 +10,7 @@ import {
 //! clone basically current state er akta copy banai dei 
 // ! Clone simply takes the type of object you give it and takes its snapshot, and then instantiates a new instance of the same type with the same snapshot, so you get basically a literal copy of the same thing.
 
+// All interfaces  
 interface WishlistItemType {
     name: string;
     id: number;
